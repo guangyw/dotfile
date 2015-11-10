@@ -1,0 +1,15 @@
+#!/bin/bash
+alias_unix_command(){
+    basedir=$1
+    for file in ${basedir}/*.exe; do
+        if [[ -x ${file} ]]; then
+            cmd=$(basename ${file} .exe)
+            if [[ "$(which ${cmd})" != "${cmd}: shell built-in command" ]]; then
+                if [[ "$(which ${cmd})" != "${basedir}/${cmd}" ]]; then
+                    echo alias ${cmd}=${basedir}/${cmd}
+                fi
+            fi
+        fi
+    done
+}
+alias_unix_command /usr/bin > ~/unix_alias.zsh
